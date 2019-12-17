@@ -42,6 +42,8 @@
 <script lang="ts">
 import Vue from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
+import { TodosApi } from '@/api/api';
+import { mount } from '@vue/test-utils';
 
 export default Vue.extend({
   name: "App",
@@ -50,8 +52,14 @@ export default Vue.extend({
     HelloWorld
   },
 
+  created() {
+    TodosApi.getTodos()
+      .then (data => console.log(data))
+      .catch (error => console.log(error));
+  },
+
   data: () => ({
-    //
+    todos: []
   })
 });
 </script>
