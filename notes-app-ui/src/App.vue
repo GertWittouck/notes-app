@@ -41,11 +41,12 @@
 
 <script lang="ts">
 import Vue from "vue";
+import Component from "vue-class-component";
 import HelloWorld from "./components/HelloWorld.vue";
-import { TodosApi } from '@/api/api';
-import { mount } from '@vue/test-utils';
+import { TodosApi } from "@/api/api";
+import { mount } from "@vue/test-utils";
 
-export default Vue.extend({
+/*export default Vue.extend({
   name: "App",
 
   components: {
@@ -54,12 +55,27 @@ export default Vue.extend({
 
   created() {
     TodosApi.getTodos()
-      .then (data => console.log(data))
-      .catch (error => console.log(error));
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
   },
 
   data: () => ({
     todos: []
   })
-});
+});*/
+
+@Component({
+  components: {
+    HelloWorld
+  }
+})
+export default class Counter extends Vue {
+  todos = [];
+
+  created() {
+    TodosApi.getTodos()
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
+  }
+}
 </script>
