@@ -45,24 +45,8 @@ import Component from "vue-class-component";
 import HelloWorld from "./components/HelloWorld.vue";
 import { TodosApi } from "@/api/api";
 import { mount } from "@vue/test-utils";
-
-/*export default Vue.extend({
-  name: "App",
-
-  components: {
-    HelloWorld
-  },
-
-  created() {
-    TodosApi.getTodos()
-      .then(data => console.log(data))
-      .catch(error => console.log(error));
-  },
-
-  data: () => ({
-    todos: []
-  })
-});*/
+import { getModule } from "vuex-module-decorators";
+import TodosStore from "@/store/modules/todosStore";
 
 @Component({
   components: {
@@ -73,8 +57,10 @@ export default class Counter extends Vue {
   todos = [];
 
   created() {
+    const todosStoreInstance = getModule(TodosStore, this.$store);
+    console.log(todosStoreInstance);
     TodosApi.getTodos()
-      .then(data => console.log(data))
+      .then(data => todosStoreInstance.updateTodos(data))
       .catch(error => console.log(error));
   }
 }
